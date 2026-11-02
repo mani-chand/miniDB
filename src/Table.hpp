@@ -54,6 +54,9 @@ public:
         rows.push_back(row);
         return true;
     }
+    const std::string& getTableName() const {
+        return name;
+    }
     void display() const {
         std::cout << "Table Name: " << name << "\n";
         bool is_first = true;

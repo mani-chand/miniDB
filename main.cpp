@@ -2,10 +2,30 @@
 #include "src/Column.hpp" // Change to .hpp if Column follows the same pattern
 #include "src/Row.hpp"	  // Directly includes the full Row layout
 #include "src/Table.hpp"  // Directly includes the full Row layout
+#include "src/Database.hpp"
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 int main()
 {
+	Database db("company_db");
+
+	if (db.createTable("users")) {
+		std::cout << "Users table created.\n";
+	} else {
+		std::cout << "Users table already exists.\n";
+	}
+
+	if (db.createTable("products")) {
+		std::cout << "Products table created.\n";
+	} else {
+		std::cout << "Products table already exists.\n";
+	}
+
+	if (db.createTable("users")) {
+		std::cout << "Users table created.\n";
+	} else {
+		std::cout << "Users table already exists.\n";
+	}
 	Row r;
 	r.addValue(std::string("mani"));
 	r.addValue(20);
