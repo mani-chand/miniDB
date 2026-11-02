@@ -20,12 +20,39 @@ public:
         Column c(name,type);
         columns.push_back(c);
     }
-    void insertRow(const Row& row) {
-        if(row.size() != columns.size()){
-            std::cout << "Expected values " << columns.size() << "But got " << row.size() << "\n";
-            return;
+    bool insertRow(const Row& row) {
+        if (row.size() != columns.size()) {
+            std::cout << "Expected values: " << columns.size()
+                    << ", but got: " << row.size() << '\n';
+            return false;
         }
+
+        for (std::size_t idx = 0; idx < columns.size(); idx++) {
+            DataType type = columns[idx].getType();
+
+            const Value& val = row.getValue(idx);
+
+            bool valid = false;
+
+            if (type == DataType::BOOLEAN) {
+                valid = std::holds_alternative<bool>(val);
+            }
+            else if (type == DataType::TEXT) {
+                valid = std::holds_alternative<std::string>(val);
+            }
+            else if (type == DataType::INTEGER) {
+                valid = std::holds_alternative<int>(val);
+            }
+
+            if (!valid) {
+                std::cout << "Invalid value type at column: "
+                        << columns[idx].getName() << '\n';
+                return false;
+            }
+        }
+
         rows.push_back(row);
+        return true;
     }
     void display() const {
         std::cout << "Table Name: " << name << "\n";

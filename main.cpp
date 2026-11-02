@@ -12,11 +12,24 @@ int main()
 	r.addValue(true);
 
 	Table t1(std::string("users"));
-	t1.addColumn(std::string("Name"),DataType::TEXT);
-	t1.addColumn(std::string("age"),DataType::INTEGER);
-	t1.addColumn(std::string("is_alive"),DataType::BOOLEAN);
-	t1.insertRow(r);
-	t1.display();
+	t1.addColumn(std::string("Name"), DataType::TEXT);
+	t1.addColumn(std::string("age"), DataType::INTEGER);
+	t1.addColumn(std::string("is_alive"), DataType::BOOLEAN);
+	if (t1.insertRow(r)) {
+		std::cout << "Row inserted successfully\n";
+	} else {
+		std::cout << "Row insertion failed\n";
+	}
+	Row invalidRow;
+	invalidRow.addValue(std::string("mani"));
+	invalidRow.addValue(std::string("twenty"));
+	invalidRow.addValue(true);
 
+	if (t1.insertRow(invalidRow)) {
+		std::cout << "Row inserted successfully\n";
+	} else {
+		std::cout << "Row insertion failed\n";
+	}
+	t1.display();
 	return 0;
 }

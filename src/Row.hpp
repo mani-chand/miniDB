@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include <type_traits>
+#include <stdexcept>
+#include <cstddef>
 using Value = std::variant<int, std::string, bool>;
 class Row
 {
@@ -18,6 +20,12 @@ public:
 	void addValue(const Value &newValue)
 	{
 		values.push_back(newValue);
+	}
+	const Value& getValue(std::size_t index) const {
+		if (index >= values.size()) {
+			throw std::out_of_range("Row index out of range");
+		}
+		return values[index];
 	}
 	void display() const
 	{
