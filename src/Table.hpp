@@ -57,6 +57,14 @@ public:
     const std::string& getTableName() const {
         return name;
     }
+
+    bool updateTableName(std::string updated_table_name){
+        if (updated_table_name.empty()) {
+            return false;
+        }
+        name = updated_table_name;
+        return true;
+    }
     void display() const {
         std::cout << "Table Name: " << name << "\n";
         bool is_first = true;
